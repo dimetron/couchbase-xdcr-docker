@@ -1,28 +1,25 @@
 #!/bin/sh
-
-./cleanup_all.sh
-
-echo "=== start consul ==="
-./start-consul.sh
-
+cd ./scripts/ && chmod +x *.sh
+	
 echo "=== create cluster A ==="
-./create-docker-swarm-cluster.sh A
+# -- cleanup
+./docker-clean-nodes.sh A $1
+# -- creat vm nodes and set docker swarm
+./docker-create-nodes.sh A
+./docker-create-cluster.sh A
+./docker-create-couchbase-cluster.sh A
+# -- here is couchbase related section
+./docker-configure-couchbase-cluster.sh A
 
 echo "=== create cluster B ==="
-./create-docker-swarm-cluster.sh B
+# -- cleanup
+./docker-clean-nodes.sh B $1
+# -- creat vm nodes and set docker swarm
+./docker-create-nodes.sh B
+./docker-create-cluster.sh B
+./docker-create-couchbase-cluster.sh B
+# -- here is couchbase related section
+./docker-configure-couchbase-cluster.sh B
 
 echo "=== list of machines ==="
 docker-machine ls
-
-echo "=== list of machines ==="
-docker-machine ls
-
-echo "=== list of servers ==="
-docker ps
-
-echo "=== node A01 ==="
-docker-machine inspect swarm-node-A-01 | jq ".Driver.IPAddress"
-
-echo "=== node B01 ==="
-docker-machine inspect swarm-node-B-01 | jq ".Driver.IPAddress"
-

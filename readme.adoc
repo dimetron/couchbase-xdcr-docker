@@ -1,25 +1,10 @@
 = Couchbase XDCR using Docker Swarm
 
-Reporitory based on blog post:   
-https://blog.couchbase.com/couchbase-xdcr-docker-swarm-machine-compose[Couchbase XDCR using Docker Swarm, Machine and Compose]
-
-=== Screen cast:
-
-https://youtu.be/F6xCxbahv_w[https://youtu.be/F6xCxbahv_w]
-
-=== Documentation:
-
-http://developer.couchbase.com/documentation/server/current/xdcr/xdcr-intro.html[Couchbase Cross Datacenter Replication] (XDCR) provides an easy way to replicate data from one cluster to another. This project has scripts that allows to create a Couchbase cluster over a Docker Swarm cluster. XDCR is then configured between these two Couchbase clusters.
-
 Steps to create two Docker Swarm clusters, a Couchbase cluster in each, and setup XDCR between the two Couchbase cluster are below:
 
-* To start local cluster A and B
+* To start local clusters A,B with XDCR 
 +
 ```
 run_all.sh
 
 ```
-== TODO
-
-* Run a simple application to write to cluster A and show replication in cluster B
-

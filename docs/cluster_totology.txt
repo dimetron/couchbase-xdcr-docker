@@ -1,0 +1,58 @@
+@startuml
+
+title Parallel - Cluster Diagram 
+
+start
+
+:Web;
+
+if (LB) then (Site1)
+  :Application - Site A;
+  :Couchbase Cluster A;
+  fork
+    :CB Node1;
+  fork again
+    :CB Node2;
+  fork again
+    :CB Node3;
+  end fork
+  fork
+    :CB Master A-1;
+  fork again
+    :CB Master A-2;
+  end fork
+else (SiteB)
+  :Application - Site B;
+   note right
+    2 Sites - Located in separate datacenters
+   end note
+  :Couchbase Cluster B;
+   note right
+    2 Clusters 1 per Site
+   end note
+    fork
+    :CB Node1;
+  fork again
+    :CB Node2;
+  fork again
+    :CB Node3;
+  end fork
+   note right
+    3 nodes (1 + 2 replica factor on bucket)
+   end note
+  fork
+    :CB Master B-1;
+  fork again
+    :CB Master B-2;
+  end fork
+    note right
+    2 masters (1 + failover)
+   end note
+ endif
+ : XDCR;
+   note right
+     XDCR - Replication Actove <--> Active
+   end note
+stop
+
+@enduml

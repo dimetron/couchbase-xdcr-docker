@@ -1,14 +1,10 @@
 #!/bin/sh
 
-echo ======================================== stop couchbase $1 and cleanup ==============================
-
-eval $(docker-machine env node-$1-master)
-docker service rm couchbase
-
 echo ======================================== start couchbase $1 on every node ============================
 
 # https://docs.docker.com/engine/reference/commandline/service_create/#options
 
+eval $(docker-machine env node-$1-master)
 docker service create --detach=false --network host --mode global \
  --restart-window 30s \
  --restart-condition any \
@@ -20,9 +16,8 @@ docker service create --detach=false --network host --mode global \
  --mount type=bind,source=/opt/couchbase/var,target=/opt/couchbase/var \
  --name couchbase \
  arungupta/couchbase
-
+ 
 sleep 30
 echo =====================================================================================================
 docker service ps couchbase
 echo =====================================================================================================
-

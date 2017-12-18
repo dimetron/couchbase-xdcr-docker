@@ -2,7 +2,7 @@
 
 Steps to create two Docker Swarm clusters, a Couchbase cluster in each, and setup XDCR between the two Couchbase cluster are below:
 
-* To start local clusters A,B with XDCR 
+* To start local clusters A,B with XDCR
 +
 ```
 run_all.sh

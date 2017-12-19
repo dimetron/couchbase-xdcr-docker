@@ -12,14 +12,14 @@ run_all.sh
 * Test of different Couchbase topologies:
 		
 * [TEST 1] - Single Node App (DEV):
-	- HA Proxy LB
-	- JavaREST  1
-	- Couchbase 1 
+	- JavaREST Api Server (PUT and GET)
+	- Couchbase 1
 	- Limitations: 
-	  DEV mode 1 APi 1 DB no DR no HA
-
+	  	DEV mode 1 APi 1 DB no DR no HA
 	- TestResults:
-	```
+	
+	HEALTHY:
+
     ✓ READ status 200
     ✓ WRITE status 200
 
@@ -37,20 +37,18 @@ run_all.sh
     vus...................: 2       min=2 max=2
     vus_max...............: 2       min=2 max=2
 	time="2017-12-18T23:43:41Z" level=info msg="Test finished" i=236 t=2m0.000519299s
-	```
+	
 
-* [TEST 2] - DR no HA (5 nodes 1 cluster):
-	- HA Proxy LB
-	- Site A (1)
-		JavaREST Api Server (PUT and GET)
-		Couchbase A (Cluster) 1 node
+* [TEST 2] - no DR no HA (5 nodes 1 cluster):
+	- JavaREST Api Server (PUT and GET)
+	- Couchbase A (Cluster) 1 node
 	- Limitations: 
 		This model limited to  replication factor 3 = Max 4 nodes
 		and it is not tolerating restart of nodes of rebalansing
 	- TestResults:
 
-	HEALTY:
-	```
+	HEALTHY:
+	
     ✓ READ status 200
     ✓ WRITE status 200
 
@@ -68,9 +66,10 @@ run_all.sh
     vus...................: 2       min=2 max=2
     vus_max...............: 2       min=2 max=2
 	time="2017-12-18T23:47:50Z" level=info msg="Test finished" i=234 t=2m0.000267858s
-	```
-	UNDER RESTART:
-	```
+	
+ 	
+ 	UNDER RESTART:
+	
 	✗ READ status 200
      ↳  78% — ✓ 91 / ✗ 25
     ✗ WRITE status 200
@@ -89,17 +88,17 @@ run_all.sh
     iterations............: 116    0.966417/s
     vus...................: 2      min=2 max=2
     vus_max...............: 2      min=2 max=2
-	```				  					  	
-	
+					  					  	
+
 * [TEST 3] - DR HA [Active - Active] (6 nodes 3 + 3 = 2 clusters):
 	- HA Proxy LB
 		LB will balance between 2 applications HA between 2 sites A & B
 	- Site A (1)
-		JavaREST Api Server (PUT and GET)
-		Couchbase A (Cluster) 3 nodes
+		- JavaREST Api Server (PUT and GET)
+		- Couchbase A (Cluster) 3 nodes
 	- Site B (1)
-		JavaREST Api Server (PUT and GET)
-		Couchbase B (Cluster) 3 nodes
+		- JavaREST Api Server (PUT and GET)
+		- Couchbase B (Cluster) 3 nodes
 	- XDCR ()
 		A - B <=> B - A
 		
